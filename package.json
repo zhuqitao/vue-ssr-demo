@@ -5,14 +5,21 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "devs": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "build": "node build/build.js"
+    "builds": "node build/build.js",
+    "build:client": "cross-env NODE_ENV=production webpack --config build/ssr.webpack.client.config.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config build/ssr.webpack.server.config.js --progress --hide-modules",
+    "dev": "node server"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.16"
@@ -63,7 +70,8 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "engines": {
     "node": ">= 6.0.0",
